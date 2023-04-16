@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Signup from "../components/Signup";
 import UserDetails from "../components/UserDetails";
 import PersonalDetails from "../components/PersonalDetails";
-// import Success from '../components/Success'
+
 import axios from "axios";
 const Form = () => {
   const titles = ["Signup", "PersonalDetails", "UserDetails"];
