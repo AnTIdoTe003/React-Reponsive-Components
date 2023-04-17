@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     crush: String,
 })
 
-const  UserModel = mongoose.model("User", UserSchema)
+const  users = mongoose.model("users", UserSchema)
 
 
-module.exports = UserModel
+module.exports = users

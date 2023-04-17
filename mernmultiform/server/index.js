@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const { mongoose } = require("mongoose");
 require("dotenv").config();
-const UserModel = require("./models/user");
+const users = require("./models/user");
 
 app.use(express.json());
 app.use(
@@ -16,8 +16,13 @@ app.use(
 mongoose.connect(process.env.MONGO_URL);
 // console.log(process.env.MONGO_URL)
 
-app.get("/test", (req, res) => {
-  res.json("test works");
+app.get("/fetchUser", async(req, res) => {
+  try{
+    const allUsers = await users.find({})
+    res.json(allUsers)
+  }catch(error){
+    console.log(error)
+  }
 });
 
 app.post("/register", async (req, res) => {
@@ -32,7 +37,7 @@ app.post("/register", async (req, res) => {
     crush,
   } = req.body;
   try {
-    const userInfo = await UserModel.create({
+    const userInfo = await users.create({
       username,
       email,
       password,

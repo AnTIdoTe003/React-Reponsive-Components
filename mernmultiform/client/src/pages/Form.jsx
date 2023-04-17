@@ -54,6 +54,8 @@ const Form = () => {
         year,
         semester,
         crush,
+      },{
+        headers: { "Content-Type":"application/json", "Accept": "application/json"},
       });
       alert("Success")
     } catch(error) {
