@@ -15,7 +15,7 @@ const AllUsers = () => {
         fetchAllUsers()
     },[])
   return (
-    <div className=' px-5 bg-gradient-to-r from-gray-700 via-gray-900 to-black h-screen w-screen text-white font-boldj'>
+    <div className=' px-5 bg-gradient-to-r from-gray-700 via-gray-900 to-black h-screen w-screen text-white font-bold'>
         <p className='py-5'>Users registered</p>
         {
             user.map((ele, item)=>{
