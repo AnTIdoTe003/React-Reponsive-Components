@@ -5,33 +5,33 @@ import { toast } from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 const Register = () => {
   const navigate = useNavigate()
-  const [formData, setFormData]= useState({
-    username:"",
+  const [response , setResponse] = useState({})
+  const [registerData, setRegisterData]= useState({
+    name:"",
     email:"",
     password:"",
     confirmPassword:"",
   })
-  const handleSubmit= async(e)=>{
+  const createUser= async(e)=>{
     e.preventDefault()
-    // console.log(formData.username)
-    const {username, email, password, confirmPassword}= formData
+    // console.log(registerData.name)
     try{
-      const {data} = await axios.post('/register',{
-        username, email, password, confirmPassword
-      },
+      const {data} = await axios.post('/register',registerData,
       {
         headers: { "Content-Type":"application/json", "Accept": "application/json"},
       })
-      if(data.error){
-        toast.error(data.error)
-      }
-      if(data.success){
-        setFormData({})
+      setResponse(data)
+      // if(data.error){
+      //   console.log(data)
+      // }
+      if(data.created){
+        setRegisterData({})
         toast.success('User is registered successfully')
         navigate('/login')
       }
     }catch(error){
-      console.log(error)
+      console.log(response)
+      toast.error(response.message)
     }
 
   }
@@ -40,22 +40,22 @@ const Register = () => {
       <div className="register-wrapper">
         <div className="register-container">
           <div className="register-content">
-            <form action="" onSubmit={handleSubmit}> 
+            <form action="" onSubmit={createUser}> 
               <div className="input-wrapper">
-                <label>Enter your Username</label>
-                <input placeholder='Enter your Username' name='username' value={formData.username} onChange={(e)=>setFormData({...formData, username:e.target.value})} type="text" />
+                <label>Enter your name</label>
+                <input placeholder='Enter your name' name='name' value={registerData.name} onChange={(e)=>setRegisterData({...registerData, name:e.target.value})} type="text" />
               </div>
                <div className="input-wrapper">
                 <label>Enter your Email</label>
-                <input placeholder='Enter your Email' name='email' value={formData.email} onChange={(e)=>setFormData({...formData, email:e.target.value})} type="email" />
+                <input placeholder='Enter your Email' name='email' value={registerData.email} onChange={(e)=>setRegisterData({...registerData, email:e.target.value})} type="email" />
               </div>
                <div className="input-wrapper">
                 <label>Enter your Password</label>
-                <input placeholder='Enter your Password' name='password' value={formData.password} onChange={(e)=>setFormData({...formData, password:e.target.value})} type="password" />
+                <input placeholder='Enter your Password' name='password' value={registerData.password} onChange={(e)=>setRegisterData({...registerData, password:e.target.value})} type="password" />
               </div>
                <div className="input-wrapper">
                 <label>Confirm your password</label>
-                <input placeholder='Confirm your password' name='confirmPassword' value={formData.confirmPassword} onChange={(e)=>setFormData({...formData, confirmPassword:e.target.value})} type="password" />
+                <input placeholder='Confirm your password' name='confirmPassword' value={registerData.confirmPassword} onChange={(e)=>setRegisterData({...registerData, confirmPassword:e.target.value})} type="password" />
               </div>
               <div className="input-wrapper">
                 <button type='submit'>Submit</button>
